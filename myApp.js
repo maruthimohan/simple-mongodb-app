@@ -63,6 +63,21 @@ var Person /* = <Your Model> */
 
 /** # [C]RUD part I - CREATE #
 /*  ========================== */
+// Person Schema
+var personSchema = new mongoose.Schema({
+    name: { 
+        type: String,
+        required: true
+    },
+    age: { 
+        type: Number 
+    },
+    favoriteFoods: {
+        type: [ String ]
+    }
+});
+// Person Model
+var Person = new mongoose.Model('Person', personSchema);
 
 /** 3) Create and Save a Person */
 
