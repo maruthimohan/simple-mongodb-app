@@ -42,8 +42,21 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopol
 // `default` values. See the [mongoose docs](http://mongoosejs.com/docs/guide.html).
 
 // <Your code here >
-
-var Person /* = <Your Model> */
+// Person Schema
+var personSchema = new mongoose.Schema({
+    name: { 
+        type: String,
+        required: true
+    },
+    age: { 
+        type: Number 
+    },
+    favoriteFoods: {
+        type: [ String ]
+    }
+});
+// Person Model
+var Person = mongoose.model('Person', personSchema);
 
 // **Note**: Glitch is a real server, and in real servers interactions with
 // the db are placed in handler functions, to be called when some event happens
@@ -63,21 +76,7 @@ var Person /* = <Your Model> */
 
 /** # [C]RUD part I - CREATE #
 /*  ========================== */
-// Person Schema
-var personSchema = new mongoose.Schema({
-    name: { 
-        type: String,
-        required: true
-    },
-    age: { 
-        type: Number 
-    },
-    favoriteFoods: {
-        type: [ String ]
-    }
-});
-// Person Model
-var Person = mongoose.model('Person', personSchema);
+
 
 /** 3) Create and Save a Person */
 
@@ -127,9 +126,13 @@ var createAndSavePerson = function(done) {
 // 'arrayOfPeople'.
 
 var createManyPeople = function(arrayOfPeople, done) {
-    
-    done(null/*, data*/);
-    
+    Person.create(arrayOfPeople, function(err, arrayOfPeople) {
+        if(err) {
+            return console.error(err);
+        }
+        // Person data has been created
+        done(null, arrayOfPeople);
+    });
 };
 
 /** # C[R]UD part II - READ #
