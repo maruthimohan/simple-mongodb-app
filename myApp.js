@@ -96,8 +96,24 @@ var Person = mongoose.model('Person', personSchema);
 // });
 
 var createAndSavePerson = function(done) {
-  
-  done(null /*, data*/);
+    // Instantiate the Person data
+    var person = new Person({
+        name: 'Maruthi',
+        age: 25,
+        favoriteFoods: [
+            'Biryani',
+            'Poha',
+            'Dosa'
+        ]
+    });
+    // Save the person
+    person.save(function(err, person) {
+        if(err) {
+            return console.error(err);
+        }
+        // Person record has been created
+        done(null, person);
+    });
 
 };
 
